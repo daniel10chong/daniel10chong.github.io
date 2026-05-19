@@ -1,2 +1,619 @@
 # daniel10chong.github.io
 2026 Danu Venture Group AGM
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Danu Annual General Meeting</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0d;
+    --ink-mid: #4a4845;
+    --ink-muted: #8a8784;
+    --ink-faint: #d4d2ce;
+    --paper: #f7f5f0;
+    --paper-warm: #ede9e1;
+    --paper-card: #ffffff;
+    --gold: #b89a5a;
+    --gold-light: #e8d9b8;
+    --accent: #1a3a2a;
+    --radius: 4px;
+    --radius-lg: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 1px solid var(--ink-faint);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo span { color: var(--gold); }
+
+  .logo img {
+    width: 120px;
+    height: auto;
+    display: block;
+  }
+
+  .header-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .confidential-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-light);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .confidential-badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  /* ── Main layout ── */
+  main {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 56px 48px 80px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* ── Left column ── */
+  .video-section { display: flex; flex-direction: column; gap: 28px; }
+
+  .page-title-block {
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+  }
+
+  .page-title-block h1 .agm br {
+    display: block;
+    margin-bottom: 0.3em;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--ink-mid);
+  }
+
+  /* Title parts */
+  .page-title-block h1 .brand {
+    font-size: 28px;
+    color: var(--ink);
+    font-weight: 500;
+    display: block;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .page-title-block h1 .agm {
+    color: var(--ink);
+    font-style: normal;
+    font-size: 38px;
+    display: block;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .page-title-block h1 .agm br {
+    display: block;
+    margin-bottom: 0.8em;
+  }
+
+  .page-desc {
+    font-size: 15px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  /* ── Video player ── */
+  .video-wrapper {
+    position: relative;
+    background: var(--ink);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Placeholder state */
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #111;
+  }
+
+  .video-placeholder.hidden { display: none; }
+
+  .placeholder-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .placeholder-icon svg { opacity: 0.4; }
+
+  .placeholder-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* Chapter progress strip */
+  .chapter-strip {
+    display: flex;
+    height: 3px;
+    width: 100%;
+    gap: 2px;
+    margin-top: 10px;
+  }
+
+  .strip-segment {
+    flex: 1;
+    background: var(--ink-faint);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .strip-segment.active { background: var(--gold); }
+  .strip-segment:hover { background: var(--ink-mid); }
+
+  /* ── Highlights teaser ── */
+  .highlights-section { margin-top: 8px; }
+
+  .highlights-card {
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--paper-card);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlights-card::before {
+    content: 'COMING SOON';
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    border: 1px solid var(--ink-faint);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .highlights-thumb {
+    width: 96px;
+    height: 60px;
+    background: var(--paper-warm);
+    border-radius: var(--radius);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--ink-faint);
+    opacity: 0.6;
+  }
+
+  .highlights-thumb svg { opacity: 0.4; }
+
+  .highlights-info { opacity: 0.55; }
+
+  .highlights-info h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .highlights-info p {
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.5;
+  }
+
+  /* ── Right sidebar ── */
+  .sidebar { display: flex; flex-direction: column; gap: 6px; position: sticky; top: 88px; }
+
+  .sidebar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+    padding-left: 2px;
+  }
+
+  .chapter-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    background: transparent;
+    text-align: left;
+    width: 100%;
+  }
+
+  .chapter-item:hover {
+    background: var(--paper-warm);
+    border-color: var(--ink-faint);
+  }
+
+  .chapter-item.active {
+    background: var(--paper-card);
+    border-color: var(--ink-faint);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .chapter-item.active .ch-num { color: var(--gold); }
+  .chapter-item.active .ch-title { color: var(--ink); }
+
+  .ch-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    padding-top: 2px;
+    min-width: 20px;
+    transition: color 0.15s;
+  }
+
+  .ch-body { flex: 1; }
+
+  .ch-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-mid);
+    line-height: 1.3;
+    margin-bottom: 3px;
+    transition: color 0.15s;
+  }
+
+  .ch-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+  }
+
+  .ch-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ink-faint);
+    margin-top: 6px;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+
+  .chapter-item.active .ch-dot { background: var(--gold); }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--ink-faint);
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  /* ── How-to swap banner ── */
+  .swap-banner {
+    background: var(--accent);
+    color: rgba(255,255,255,0.85);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    padding: 12px 48px;
+    letter-spacing: 0.02em;
+  }
+
+  .swap-banner strong { color: #fff; }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .video-section > * { animation: fadeUp 0.5s ease both; }
+  .video-section > *:nth-child(1) { animation-delay: 0.05s; }
+  .video-section > *:nth-child(2) { animation-delay: 0.12s; }
+  .video-section > *:nth-child(3) { animation-delay: 0.2s; }
+  .video-section > *:nth-child(4) { animation-delay: 0.28s; }
+
+  .chapter-item { animation: fadeUp 0.4s ease both; }
+  .chapter-item:nth-child(2) { animation-delay: 0.08s; }
+  .chapter-item:nth-child(3) { animation-delay: 0.14s; }
+  .chapter-item:nth-child(4) { animation-delay: 0.2s; }
+  .chapter-item:nth-child(5) { animation-delay: 0.26s; }
+  .chapter-item:nth-child(6) { animation-delay: 0.32s; }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    main { grid-template-columns: 1fr; gap: 36px; }
+    header { padding: 0 24px; }
+    main { padding: 36px 24px 60px; }
+    footer { padding: 20px 24px; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .swap-banner { padding: 12px 24px; }
+    h1 { font-size: 28px; }
+    .sidebar { position: static; }
+    .sidebar-label { margin-top: 8px; }
+    .logo img { width: 56px; }
+    header { height: 64px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="assets/danuvg_logo.png" alt="Danu Venture Group logo" class="logo-img"></div>
+  <div class="header-meta">2026 Annual General Meeting</div>
+</header>
+
+<main>
+  <!-- Left column -->
+  <div class="video-section">
+    <div class="page-title-block">
+      <p class="eyebrow">Full recording · May 2026</p>
+      <h1><span class="agm">2026 Danu Venture Group<br>Annual General Meeting</span></h1>
+      <p class="page-desc">The complete recording of our 2026 Annual General Meeting. Use the feature on the right to jump to any segment of the meeting.</p>
+    </div>
+
+    <div>
+      <div class="video-wrapper" id="videoWrapper">
+        <!-- ✏️ SWAP: Replace src with your video URL. Remove <div class="video-placeholder"> once you have a real video. -->
+        <video id="mainVideo" controls preload="metadata">
+          <source src="assets/26_DanuAGM_Full.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- Chapter progress strip -->
+      <div class="chapter-strip" id="chapterStrip">
+        <div class="strip-segment active" data-index="0"></div>
+        <div class="strip-segment" data-index="1"></div>
+        <div class="strip-segment" data-index="2"></div>
+        <div class="strip-segment" data-index="3"></div>
+        <div class="strip-segment" data-index="4"></div>
+      </div>
+    </div>
+
+    <!-- Highlights teaser -->
+    <div class="highlights-section">
+      <div class="highlights-card">
+        <div class="highlights-thumb">
+          <svg width="24" height="24" fill="none" stroke="#4a4845" stroke-width="1.5" viewBox="0 0 24 24">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <div class="highlights-info">
+          <h3>Key Moments Reel</h3>
+          <p>A curated highlight clip of the most important moments from this meeting. Check back soon.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right sidebar: chapters -->
+  <aside class="sidebar">
+    <p class="sidebar-label">Segments</p>
+
+    <!-- ✏️ SWAP: Update segment titles and timestamps (seconds) to match your video -->
+    <button class="chapter-item active" onclick="skipTo(0, 0)">
+      <span class="ch-num">01</span>
+      <div class="ch-body">
+        <div class="ch-title">Opening Remarks</div>
+        <div class="ch-time">0:00</div>
+      </div>
+      <div class="ch-dot"></div>
+    </button>
+
+    <button class="chapter-item" onclick="skipTo(1, 794)">
+      <span class="ch-num">02</span>
+      <div class="ch-body">
+        <div class="ch-title">Radical AI</div>
+        <div class="ch-time">13:14</div>
+      </div>
+      <div class="ch-dot"></div>
+    </button>
+
+    <button class="chapter-item" onclick="skipTo(2, 2228)">
+      <span class="ch-num">03</span>
+      <div class="ch-body">
+        <div class="ch-title">Spektrum Labs</div>
+        <div class="ch-time">37:08</div>
+      </div>
+      <div class="ch-dot"></div>
+    </button>
+
+    <button class="chapter-item" onclick="skipTo(3, 4730)">
+      <span class="ch-num">04</span>
+      <div class="ch-body">
+        <div class="ch-title">Radium</div>
+        <div class="ch-time">1:18:50</div>
+      </div>
+      <div class="ch-dot"></div>
+    </button>
+
+    <button class="chapter-item" onclick="skipTo(4, 6494)">
+      <span class="ch-num">05</span>
+      <div class="ch-body">
+        <div class="ch-title">General Partners Panel</div>
+        <div class="ch-time">1:48:14</div>
+      </div>
+      <div class="ch-dot"></div>
+    </button>
+  </aside>
+</main>
+
+<footer>
+  <div class="footer-note">
+    © 2026 Danu Venture Group · For authorized investors only.<br>
+    Do not distribute or reproduce without permission.
+  </div>
+  <div class="footer-note" style="text-align:right;">
+    2026 Danu Venture Group Annual General Meeting<br>
+    Recorded May 2026
+  </div>
+</footer>
+
+<script>
+  // ── Chapter timestamps (seconds) ──────────────────────────────────
+  // ✏️ Update these to match your actual video segments
+  const chapters = [0, 794, 2228, 4730, 6494];
+
+  const video = document.getElementById('mainVideo');
+  const placeholder = document.getElementById('placeholder');
+  const chapterItems = document.querySelectorAll('.chapter-item');
+  const stripSegments = document.querySelectorAll('.strip-segment');
+
+  // Hide placeholder once real video loads
+  video.addEventListener('loadedmetadata', () => {
+    if (video.src && !video.src.includes('YOUR_VIDEO_URL_HERE')) {
+      placeholder.classList.add('hidden');
+    }
+  });
+
+  // Skip to a chapter
+  function skipTo(index, seconds) {
+    setActive(index);
+    video.currentTime = seconds;
+    video.play().catch(() => {});
+  }
+
+  function setActive(index) {
+    chapterItems.forEach((el, i) => el.classList.toggle('active', i === index));
+    stripSegments.forEach((el, i) => el.classList.toggle('active', i === index));
+  }
+
+  // Auto-highlight chapter as video plays
+  video.addEventListener('timeupdate', () => {
+    const t = video.currentTime;
+    let current = 0;
+    for (let i = 0; i < chapters.length; i++) {
+      if (t >= chapters[i]) current = i;
+    }
+    setActive(current);
+  });
+
+  // Clicking the strip also skips
+  stripSegments.forEach(seg => {
+    seg.addEventListener('click', () => {
+      const i = parseInt(seg.dataset.index);
+      skipTo(i, chapters[i]);
+    });
+  });
+</script>
+</body>
+</html>
